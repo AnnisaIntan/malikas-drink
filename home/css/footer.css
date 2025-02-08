@@ -1,0 +1,90 @@
+/* Footer */
+footer {
+background-color: var(--primary);
+color: var(--bg);
+text-align: center;
+padding: 3rem 0;
+}
+
+.footer-content {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0 2rem;
+}
+
+.footer-left {
+display: flex;
+flex-direction: column;
+align-items: center; /* Center content horizontally */
+text-align: center; /* Center text inside */
+}
+
+.footer-logo {
+font-size: 1.5rem;
+font-weight: 700;
+}
+
+.footer-logo a {
+color: var(--bg);
+text-decoration: none;
+}
+
+.footer-logo span {
+color: var(--other);
+}
+
+.footer-links {
+display: flex;
+flex-direction: row; /* Arrange links horizontally */
+justify-content: center; /* Center the links horizontally */
+align-items: center; /* Align items vertically in the center */
+}
+
+.footer-links a {
+padding: 0 1rem;
+margin: 2rem 0;
+color: var(--bg);
+font-size: 1.3rem;
+}
+
+.footer-links a:hover {
+color: var(--other);
+}
+
+.footer-right {
+display: flex;
+flex-direction: column; /* Arrange social media icons vertically */
+align-items: flex-end;
+gap: 1rem;
+}
+
+.footer-right .social a {
+color: var(--bg);
+font-size: 1.5rem;
+margin: 0 1rem ;
+}
+
+.footer-right .social a:hover {
+color: var(--other);
+}
+
+.footer-line {
+border: 0;
+border-top: 1px solid var(--bg);
+margin: 1rem 0;
+}
+
+.footer-credit {
+font-size: 1rem;
+margin-top: 1rem;
+}
+
+.footer-credit a {
+color: var(--other);
+font-weight: 900;
+}
+
+.footer-credit p {
+margin: 0;
+}
