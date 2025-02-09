@@ -1,74 +1,81 @@
 <?php
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
+        // Admin Section
         case 'admin_show':
-            include('admin_show.php');
+            include('admin/admin_show.php');
             break;
         case 'admin_add':
-            include('admin_add.php');
+            include('admin/admin_add.php');
             break;
         case 'admin_read':
-            include('admin_read.php');
+            include('admin/admin_read.php');
             break;
 
+        // News Section
         case 'news_show':
-            include('news_show.php');
+            include('news/news_show.php');
             break;
         case 'news_add':
-            include('news_add.php');
+            include('news/news_add.php');
             break;
         case 'news_read':
-            include('news_read.php');
+            include('news/news_read.php');
             break;
 
+        // Gallery Section
         case 'gallery_show':
-            include('gallery_show.php');
+            include('gallery/gallery_show.php');
             break;
         case 'gallery_add':
-            include('gallery_add.php');
+            include('gallery/gallery_add.php');
             break;
         case 'gallery_read':
-            include('gallery_read.php');
+            include('gallery/gallery_read.php');
             break;
 
+        // Game Section
         case 'game_show':
-            include('game_show.php');
+            include('game/game_show.php');
             break;
         case 'game_add':
-            include('game_add.php');
+            include('game/game_add.php');
             break;
         case 'game_read':
-            include('game_read.php');
+            include('game/game_read.php');
             break;
 
+        // Comment Section
         case 'comment_show':
-            include('comment_show.php');
+            include('comment/comment_show.php');
             break;
         case 'comment_add':
-            include('comment_add.php');
+            include('comment/comment_add.php');
             break;
         case 'comment_read':
-            include('comment_read.php');
+            include('comment/comment_read.php');
             break;
 
+        // Merchandise Section
         case 'merchan_show':
-            include('merchan_show.php');
+            include('merchan/merchan_show.php');
             break;
         case 'merchan_add':
-            include('merchan_add.php');
+            include('merchan/merchan_add.php');
             break;
         case 'merchan_read':
-            include('merchan_read.php');
+            include('merchan/merchan_read.php');
             break;
 
+        // Creator Section
         case 'creator_show':
-            include('creator_show.php');
+            include('creator/creator_show.php');
             break;
         case 'creator_add':
-            include('creator_add.php');
+            include('creator/creator_add.php');
             break;
         case 'creator_read':
-            include('creator_read.php');
+            include('creator/creator_read.php');
             break;
     }
 }

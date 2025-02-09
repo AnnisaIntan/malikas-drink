@@ -5,7 +5,7 @@
         <div class="content">
           <h1>Welcome Back!</h1>
           <p>Please log in to your account</p>
-          <form action="login_proses.php" method="post">
+          <form action="auth/login_proses.php" method="post">
             <div class="input-group">
               <input type="text" id="user_name" name="user_name" maxlength="50" required>
               <label for="username">Username</label>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="right">
-        <img src="../image/default/es tebak.png" alt="Login Image">
+        <img src="../admin/auth/es tebak.png" alt="Login Image">
       </div>
     </div>
   </div>

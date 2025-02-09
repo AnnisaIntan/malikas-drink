@@ -156,7 +156,7 @@
         </div>
     <?php
     } else {
-        include "login.php";
+        include "auth/index.php";
     }
     ?>
 </body>

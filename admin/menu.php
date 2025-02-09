@@ -14,7 +14,7 @@
         <li><a href="index.php?page=comment_show">Comment</a></li>
         <li><a href="index.php?page=merchan_show">Merchandise</a></li>
         <li><a href="index.php?page=creator_show">Creator</a></li>
-        <li><a href="logout.php">Log Out</a></li>
+        <li><a href="auth/logout.php">Log Out</a></li>
     </ul>
 </div>
 
