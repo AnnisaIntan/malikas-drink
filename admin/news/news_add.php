@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<form action="news_process.php" method="post" enctype="multipart/form-data">
+<form action="<?php echo 'index.php?page=news_process'; ?>" method="post" enctype="multipart/form-data">
     <?php
     if (isset($_GET['id'])) {
         echo "<input type='hidden' name='status' value='edit'>";

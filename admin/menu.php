@@ -6,7 +6,7 @@
 <div class="menu-container" style="margin-top: 2rem;">
     <button class="hamburger">☰</button>
     <ul class="menu">
-        <li><a href="index.php?page=profile_show">Profile</a></li>
+        <li><a href="index.php?page=my_profile">Profile</a></li>
         <li><a href="index.php?page=admin_show">Admin</a></li>
         <li><a href="index.php?page=news_show">News</a></li>
         <li><a href="index.php?page=gallery_show">Gallery</a></li>

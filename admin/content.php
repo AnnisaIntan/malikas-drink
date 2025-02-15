@@ -1,7 +1,12 @@
 <?php
 if (isset($_GET['page'])) {
     switch ($_GET['page']) {
-        // Admin Section
+            // Profile
+        case 'my_profile':
+            include('profile.php');
+            break;
+
+            // Admin Section
         case 'admin_show':
             include('admin/admin_show.php');
             break;
@@ -11,8 +16,11 @@ if (isset($_GET['page'])) {
         case 'admin_read':
             include('admin/admin_read.php');
             break;
+        case 'admin_process':
+            include('admin/admin_process.php');
+            break;
 
-        // News Section
+            // News Section
         case 'news_show':
             include('news/news_show.php');
             break;
@@ -22,8 +30,11 @@ if (isset($_GET['page'])) {
         case 'news_read':
             include('news/news_read.php');
             break;
+        case 'news_process':
+            include('news/news_process.php');
+            break;
 
-        // Gallery Section
+            // Gallery Section
         case 'gallery_show':
             include('gallery/gallery_show.php');
             break;
@@ -33,8 +44,11 @@ if (isset($_GET['page'])) {
         case 'gallery_read':
             include('gallery/gallery_read.php');
             break;
+        case 'gallery_process':
+            include('gallery/gallery_process.php');
+            break;
 
-        // Game Section
+            // Game Section
         case 'game_show':
             include('game/game_show.php');
             break;
@@ -44,8 +58,11 @@ if (isset($_GET['page'])) {
         case 'game_read':
             include('game/game_read.php');
             break;
+        case 'game_process':
+            include('game/game_process.php');
+            break;
 
-        // Comment Section
+            // Comment Section
         case 'comment_show':
             include('comment/comment_show.php');
             break;
@@ -55,8 +72,11 @@ if (isset($_GET['page'])) {
         case 'comment_read':
             include('comment/comment_read.php');
             break;
+        case 'comment_process':
+            include('comment/comment_process.php');
+            break;
 
-        // Merchandise Section
+            // Merchandise Section
         case 'merchan_show':
             include('merchan/merchan_show.php');
             break;
@@ -66,8 +86,11 @@ if (isset($_GET['page'])) {
         case 'merchan_read':
             include('merchan/merchan_read.php');
             break;
+        case 'merchan_process':
+            include('merchan/merchan_process.php');
+            break;
 
-        // Creator Section
+            // Creator Section
         case 'creator_show':
             include('creator/creator_show.php');
             break;
@@ -76,6 +99,9 @@ if (isset($_GET['page'])) {
             break;
         case 'creator_read':
             include('creator/creator_read.php');
+            break;
+        case 'creator_process':
+            include('creator/creator_process.php');
             break;
     }
 }

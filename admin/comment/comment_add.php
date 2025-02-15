@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<form action="comment_process.php" method="post">
+<form action="<?php echo 'index.php?page=comment_process'; ?>" method="post">
     <?php
     if (isset($_GET['id'])) {
         echo "<input type='hidden' name='status' value='edit'>";
