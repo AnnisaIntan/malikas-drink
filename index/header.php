@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malika's Drink</title>
+    <link rel="icon" href="/malikas-drink/image/default/logo.png" type="image/png">
     <!-- CSS Index -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -14,7 +15,7 @@
     <header class="navbar">
         <div class="logo">
             <a href="/malikas-drink/index">
-                <img src="../image/default/logo.png" alt="Logo">
+                <img src="/malikas-drink/image/default/logo.png" alt="Logo">
             </a>
         </div>
         <nav class="nav-items">

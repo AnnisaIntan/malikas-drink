@@ -6,6 +6,8 @@ RewriteCond %{REQUEST_URI} !^/malikas-drink/404.php$ [NC]
 # Allow access only to /admin and /index (with or without trailing slashes)
 RewriteCond %{REQUEST_URI} !^/malikas-drink/admin(/.*)?$ [NC]
 RewriteCond %{REQUEST_URI} !^/malikas-drink/index(/.*)?$ [NC]
+RewriteCond %{REQUEST_URI} !^/malikas-drink/image(/.*)?$ [NC]
+RewriteCond %{REQUEST_URI} !^/malikas-drink/asset(/.*)?$ [NC]
 RewriteRule .* /malikas-drink/404.php [L,R=302]
 
 # Custom error page for 403 Forbidden and 404 Not Found
