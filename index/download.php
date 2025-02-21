@@ -44,7 +44,7 @@ include('header.php');
         </div>
     </div>
 
-    <div class="download-feedback-section">
+    <div class="download-feedback-section" id="comment">
         <h1 class="download-title">Give Your Feedback</h1>
         <div class="download-content-wrapper">
             <div class="download-form-section">
@@ -111,7 +111,7 @@ include('header.php');
     }
 
     .download-title {
-        font-size: 128px;
+        font-size: 64px;
         font-weight: 400;
         color: #630a10;
         margin: 0;

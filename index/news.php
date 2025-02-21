@@ -5,8 +5,7 @@ include('header.php');
 
 <style>
     .news-header-section {
-        width: 100%;
-        max-width: 1566px;
+        width: 95%;
         height: 426px;
         padding: 87px 157px;
         background: linear-gradient(90deg, rgba(145, 31, 39, 1) 29%, rgba(252, 240, 200, 1) 100%);
@@ -24,28 +23,30 @@ include('header.php');
     }
 
     .news-tagline {
-        font-size: 128px;
+        font-size: 96px;
         font-weight: 400;
         color: #fcf0c8;
         margin: 0;
+        padding: 0;
     }
 
     .news-sub-tagline {
-        font-size: 64px;
+        font-size: 48px;
         font-weight: 400;
         color: #fcf0c8;
         margin: 0;
+        padding: 0;
     }
 
     .news-read-more {
         font-family: 'PixelFont';
-        width: 184px;
-        height: 44px;
+        width: 30%;
+        height: auto;
         padding: 13px 33px;
         background-color: #fcf0c8;
         border-radius: 20px;
         border: none;
-        font-size: 36px;
+        font-size: 24px;
         font-weight: 400;
         color: #630a10;
         cursor: pointer;
@@ -72,6 +73,7 @@ include('header.php');
         min-width: 571px;
         height: 116px;
         box-sizing: border-box;
+        margin: -50px;
     }
 
     .news-tagline-text {
@@ -87,7 +89,7 @@ include('header.php');
         flex-direction: column;
         gap: 30px;
         max-width: 100%;
-        margin: 0 auto;
+        margin: 50px 0 0 0;
         padding: 20px;
     }
 

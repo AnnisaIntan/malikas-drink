@@ -31,7 +31,7 @@
       echo "<td class='action-buttons'>
             <a href='index.php?page=creator_read&id=" . $hasil['id_pembuat'] . "'><button class='button-primary'>Read</button></a>
             <a href='index.php?page=creator_add&id=" . $hasil['id_pembuat'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='creator_process.php?status=hapus&id=" . $hasil['id_pembuat'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
+            <a href='index.php?page=creator_process&id=" . $hasil['id_pembuat'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
             </td>";
       echo "</tr>";
       $no++;

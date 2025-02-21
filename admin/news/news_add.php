@@ -19,17 +19,12 @@ if (isset($_GET['id'])) {
     }
     ?>
     <table align="center">
-        <h1>Data Berita</h1>
+        <h1>Data News</h1>
         <br>
         <tr>
             <td>Judul Berita</td>
             <td> : </td>
             <td><input type="text" maxlength="128" size="50" name="judul_berita" value="<?php echo @$berita_edit['judul_berita']; ?>"></td>
-        </tr>
-        <tr>
-            <td>Tanggal Berita</td>
-            <td> : </td>
-            <td><input type="date" name="tgl_berita" value="<?php echo @$berita_edit['tgl_berita']; ?>"></td>
         </tr>
         <tr>
             <td>Foto Berita</td>

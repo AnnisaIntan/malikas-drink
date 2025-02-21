@@ -20,14 +20,87 @@
           </form>
         </div>
       </div>
-      <div class="right">
-        <img src="../admin/auth/es tebak.png" alt="Login Image">
+      <div class="right" style="position: relative;">
+        <img id="hoverImage" src="../admin/auth/es tebak.png" alt="Login Image" style="cursor: pointer;">
+        <div id="popup" class="popup">
+          <p>Switch to the registration page?</p>
+          <a href="/malikas-drink/admin/auth/registration.php">Click here</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+  let popupTimeout;
+
+  document.getElementById("hoverImage").addEventListener("mouseover", function() {
+    popupTimeout = setTimeout(() => {
+      let popup = document.getElementById("popup");
+      popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.opacity = "1";
+        popup.style.transform = "translate(-50%, -60%)";
+      }, 10);
+    }, 3000); // 3-second delay
+  });
+
+  document.getElementById("hoverImage").addEventListener("mouseleave", function() {
+    clearTimeout(popupTimeout);
+  });
+
+  document.addEventListener("click", function(event) {
+    let popup = document.getElementById("popup");
+    let hoverImage = document.getElementById("hoverImage");
+
+    if (!hoverImage.contains(event.target) && !popup.contains(event.target)) {
+      popup.style.opacity = "0";
+      popup.style.transform = "translate(-50%, -50%)";
+      setTimeout(() => (popup.style.display = "none"), 500);
+    }
+  });
+</script>
+
 <style>
+  .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 14px;
+    width: 200px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .popup p {
+    margin: 0;
+    color: var(--bg);
+    font-weight: bold;
+  }
+
+  .popup a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--tr1);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid var(--tr1);
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
+  }
+
+  .popup a:hover {
+    color: var(--tr2);
+    border-bottom: 2px solid var(--tr2);
+  }
+
   :root {
     --bg: #025464;
     --color: #F8F1F1;

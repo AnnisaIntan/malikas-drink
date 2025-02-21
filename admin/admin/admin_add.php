@@ -62,7 +62,7 @@ if (isset($_GET['id'])) {
     </table>
     <br>
     <input type="submit" value="SIMPAN" class="button-primary">
-    <input type="reset" value="BATAL" class="button-primary" onclick="window.location.href='index.php?page=admin_show'">
+    <input type="reset" value="BATAL" class="button-primary" onclick="window.location.href='index.php?page=my_profile'">
 </form>
 
 <style>

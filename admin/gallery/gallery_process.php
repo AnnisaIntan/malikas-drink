@@ -1,6 +1,5 @@
 <?php
 include "../config/connection.php";
-session_start();
 
 $id_admin = $_SESSION['id'];
 $user_name = $_SESSION['user_name'];
@@ -10,35 +9,37 @@ $status = isset($_POST['status']) ? $_POST['status'] : '';
 switch ($status) {
     case 'tambah':
         $judul_galeri = mysqli_real_escape_string($koneksi, $_POST['judul_galeri']);
-        $tgl_galeri = date('Y-m-d', strtotime($_POST['tgl_galeri'])); // Convert to YYYY-MM-DD
         $detail_galeri = mysqli_real_escape_string($koneksi, $_POST['detail_galeri']);
 
-        // Handle photo upload
-        $simpan_foto = "";
-        if (isset($_FILES['foto_galeri']['tmp_name']) && $_FILES['foto_galeri']['size'] > 0) {
-            $galeri_foto = $_FILES['foto_galeri']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_galeri']['name']);
-            $simpan_foto = "../image/" . $foto_name;
-            move_uploaded_file($galeri_foto, $simpan_foto);
-        }
-
-        // Insert into database
+        // Insert into database without image first
         $query = "INSERT INTO galeri (id_admin, user_name, judul_galeri, tgl_galeri, foto_galeri, detail_galeri, created_at, updated_at) 
-                VALUES ('$id_admin', '$user_name', '$judul_galeri', '$tgl_galeri', '$simpan_foto', '$detail_galeri', NOW(), NOW())";
+                  VALUES ('$id_admin', '$user_name', '$judul_galeri', NOW(), '', '$detail_galeri', NOW(), NOW())";
 
         $galeri_tambah = mysqli_query($koneksi, $query);
 
         if ($galeri_tambah) {
-            echo "<script>alert('Tambah Data Galeri Berhasil');</script>";
+            $id_galeri = mysqli_insert_id($koneksi);
+
+            // Handle photo upload
+            if (isset($_FILES['foto_galeri']['tmp_name']) && $_FILES['foto_galeri']['size'] > 0) {
+                $galeri_foto = $_FILES['foto_galeri']['tmp_name'];
+                $ext = pathinfo($_FILES['foto_galeri']['name'], PATHINFO_EXTENSION);
+                $foto_name = "gallery-photo-$id_galeri.$ext";
+                $simpan_foto = "../image/" . $foto_name;
+
+                if (move_uploaded_file($galeri_foto, $simpan_foto)) {
+                    mysqli_query($koneksi, "UPDATE galeri SET foto_galeri = '$simpan_foto' WHERE id_galeri = '$id_galeri'");
+                }
+            }
+            echo "<script>alert('Gallery data added successfully');</script>";
         } else {
-            echo "<script>alert('Tambah Data Galeri Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to add gallery data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
     case 'edit':
         $id = $_POST['id'];
         $judul_galeri = mysqli_real_escape_string($koneksi, $_POST['judul_galeri']);
-        $tgl_galeri = date('Y-m-d', strtotime($_POST['tgl_galeri'])); // Convert to YYYY-MM-DD
         $detail_galeri = mysqli_real_escape_string($koneksi, $_POST['detail_galeri']);
         $centang = isset($_POST['centang']) ? $_POST['centang'] : '';
 
@@ -53,7 +54,8 @@ switch ($status) {
 
             // Upload new photo
             $galeri_foto = $_FILES['foto_galeri']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_galeri']['name']);
+            $ext = pathinfo($_FILES['foto_galeri']['name'], PATHINFO_EXTENSION);
+            $foto_name = "gallery-photo-$id.$ext";
             $simpan_foto = "../image/" . $foto_name;
             move_uploaded_file($galeri_foto, $simpan_foto);
         } else {
@@ -65,7 +67,7 @@ switch ($status) {
         id_admin = '$id_admin',
         user_name = '$user_name',
         judul_galeri = '$judul_galeri',
-        tgl_galeri = '$tgl_galeri',
+        tgl_galeri = NOW(),
         foto_galeri = '$simpan_foto',
         detail_galeri = '$detail_galeri',
         updated_at = NOW(),
@@ -75,9 +77,9 @@ switch ($status) {
         $galeri_edit = mysqli_query($koneksi, $query);
 
         if ($galeri_edit) {
-            echo "<script>alert('Edit Data Galeri Berhasil');</script>";
+            echo "<script>alert('Gallery data updated successfully');</script>";
         } else {
-            echo "<script>alert('Edit Data Galeri Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to update gallery data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
@@ -86,12 +88,12 @@ switch ($status) {
             $id = $_GET['id'];
             $galeri_hapus = mysqli_query($koneksi, "DELETE FROM galeri WHERE id_galeri = '$id'");
             if ($galeri_hapus) {
-                echo "<script>alert('Hapus Data Galeri Berhasil');</script>";
+                echo "<script>alert('Gallery data deleted successfully');</script>";
             } else {
-                echo "<script>alert('Hapus Data Galeri Gagal: " . mysqli_error($koneksi) . "');</script>";
+                echo "<script>alert('Failed to delete gallery data: " . mysqli_error($koneksi) . "');</script>";
             }
         }
         break;
 }
 ?>
-<meta http-equiv="refresh" content="0; index.php?page=galery_show">
+<meta http-equiv="refresh" content="0; index.php?page=gallery_show">

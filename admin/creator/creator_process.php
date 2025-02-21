@@ -1,6 +1,5 @@
 <?php
 include "../config/connection.php";
-session_start();
 
 $id_admin = $_SESSION['id'];
 $user_name = $_SESSION['user_name'];
@@ -13,25 +12,29 @@ switch ($status) {
         $pendidikan_pembuat = mysqli_real_escape_string($koneksi, $_POST['pendidikan_pembuat']);
         $detail_pembuat = mysqli_real_escape_string($koneksi, $_POST['detail_pembuat']);
 
-        // Handle photo upload
-        $simpan_foto = "";
-        if (isset($_FILES['foto_pembuat']['tmp_name']) && $_FILES['foto_pembuat']['size'] > 0) {
-            $pembuat_foto = $_FILES['foto_pembuat']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_pembuat']['name']);
-            $simpan_foto = "../image/" . $foto_name;
-            move_uploaded_file($pembuat_foto, $simpan_foto);
-        }
-
-        // Insert into database
-        $query = "INSERT INTO pembuat (id_admin, user_name, nama_pembuat, pendidikan_pembuat, foto_pembuat, detail_pembuat, created_at, updated_at) 
-                VALUES ('$id_admin', '$user_name', '$nama_pembuat', '$pendidikan_pembuat', '$simpan_foto', '$detail_pembuat', NOW(), NOW())";
-
+        // Insert into database first without the image
+        $query = "INSERT INTO pembuat (id_admin, user_name, nama_pembuat, pendidikan_pembuat, detail_pembuat, created_at, updated_at) 
+                  VALUES ('$id_admin', '$user_name', '$nama_pembuat', '$pendidikan_pembuat', '$detail_pembuat', NOW(), NOW())";
         $pembuat_tambah = mysqli_query($koneksi, $query);
 
         if ($pembuat_tambah) {
-            echo "<script>alert('Tambah Data Pembuat Berhasil');</script>";
+            $id_pembuat = mysqli_insert_id($koneksi); // Get last inserted ID
+
+            // Handle photo upload
+            if (isset($_FILES['foto_pembuat']['tmp_name']) && $_FILES['foto_pembuat']['size'] > 0) {
+                $file_extension = pathinfo($_FILES['foto_pembuat']['name'], PATHINFO_EXTENSION);
+                $foto_name = "creator-photo-" . $id_pembuat . "." . $file_extension;
+                $simpan_foto = "../image/" . $foto_name;
+
+                if (move_uploaded_file($_FILES['foto_pembuat']['tmp_name'], $simpan_foto)) {
+                    // Update the image path in the database
+                    mysqli_query($koneksi, "UPDATE pembuat SET foto_pembuat = '$simpan_foto' WHERE id_pembuat = '$id_pembuat'");
+                }
+            }
+
+            echo "<script>alert('Creator data added successfully');</script>";
         } else {
-            echo "<script>alert('Tambah Data Pembuat Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to add creator data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
@@ -52,10 +55,13 @@ switch ($status) {
             }
 
             // Upload new photo
-            $pembuat_foto = $_FILES['foto_pembuat']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_pembuat']['name']);
+            $file_extension = pathinfo($_FILES['foto_pembuat']['name'], PATHINFO_EXTENSION);
+            $foto_name = "creator-photo-" . $id . "." . $file_extension;
             $simpan_foto = "../image/" . $foto_name;
-            move_uploaded_file($pembuat_foto, $simpan_foto);
+
+            if (move_uploaded_file($_FILES['foto_pembuat']['tmp_name'], $simpan_foto)) {
+                mysqli_query($koneksi, "UPDATE pembuat SET foto_pembuat = '$simpan_foto' WHERE id_pembuat = '$id'");
+            }
         } else {
             $simpan_foto = $existing_foto_pembuat;
         }
@@ -75,20 +81,30 @@ switch ($status) {
         $pembuat_edit = mysqli_query($koneksi, $query);
 
         if ($pembuat_edit) {
-            echo "<script>alert('Edit Data Pembuat Berhasil');</script>";
+            echo "<script>alert('Creator data updated successfully');</script>";
         } else {
-            echo "<script>alert('Edit Data Pembuat Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to update creator data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
     default:
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
+
+            // Get existing photo path
+            $existing_foto_pembuat = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT foto_pembuat FROM pembuat WHERE id_pembuat = '$id'"))['foto_pembuat'];
+
+            // Delete record
             $pembuat_hapus = mysqli_query($koneksi, "DELETE FROM pembuat WHERE id_pembuat = '$id'");
+
             if ($pembuat_hapus) {
-                echo "<script>alert('Hapus Data Pembuat Berhasil');</script>";
+                // Delete the associated image file
+                if (!empty($existing_foto_pembuat) && file_exists($existing_foto_pembuat)) {
+                    unlink($existing_foto_pembuat);
+                }
+                echo "<script>alert('Creator data deleted successfully');</script>";
             } else {
-                echo "<script>alert('Hapus Data Pembuat Gagal: " . mysqli_error($koneksi) . "');</script>";
+                echo "<script>alert('Failed to delete creator data: " . mysqli_error($koneksi) . "');</script>";
             }
         }
         break;

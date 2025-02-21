@@ -1,8 +1,5 @@
 <div class="header-container">
   <h1>Game</h1>
-  <button class="button-primary">
-    <a href='index.php?page=game_add'>Create Data</a>
-  </button>
 </div>
 
 <table id="THIStable" class="display" style="text-align:center;">
@@ -31,7 +28,6 @@
       echo "<td class='action-buttons'>
             <a href='index.php?page=game_read&id=" . $hasil['id_game'] . "'><button class='button-primary'>Read</button></a>
             <a href='index.php?page=game_add&id=" . $hasil['id_game'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='game_process.php?status=hapus&id=" . $hasil['id_game'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
             </td>";
       echo "</tr>";
       $no++;

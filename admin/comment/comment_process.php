@@ -1,6 +1,5 @@
 <?php
 include "../config/connection.php";
-session_start();
 $status = isset($_POST['status']) ? $_POST['status'] : '';
 
 switch ($status) {
@@ -16,9 +15,9 @@ switch ($status) {
         $komentar_tambah = mysqli_query($koneksi, $query);
 
         if ($komentar_tambah) {
-            echo "<script>alert('Tambah Data Komentar Berhasil');</script>";
+            echo "<script>alert('Comment added successfully');</script>";
         } else {
-            echo "<script>alert('Tambah Data Komentar Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to add comment: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
@@ -40,9 +39,9 @@ switch ($status) {
         $komentar_edit = mysqli_query($koneksi, $query);
 
         if ($komentar_edit) {
-            echo "<script>alert('Edit Data Komentar Berhasil');</script>";
+            echo "<script>alert('Comment updated successfully');</script>";
         } else {
-            echo "<script>alert('Edit Data Komentar Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to update comment: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
@@ -51,9 +50,9 @@ switch ($status) {
             $id = $_GET['id'];
             $komentar_hapus = mysqli_query($koneksi, "DELETE FROM komentar WHERE id_komentar = '$id'");
             if ($komentar_hapus) {
-                echo "<script>alert('Hapus Data Komentar Berhasil');</script>";
+                echo "<script>alert('Comment deleted successfully');</script>";
             } else {
-                echo "<script>alert('Hapus Data Komentar Gagal: " . mysqli_error($koneksi) . "');</script>";
+                echo "<script>alert('Failed to delete comment: " . mysqli_error($koneksi) . "');</script>";
             }
         }
         break;

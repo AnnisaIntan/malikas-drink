@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
         echo "<tr><td><strong>Created At:</strong></td><td>" . htmlspecialchars($hasil['created_at']) . "</td></tr>";
         echo "<tr><td><strong>Updated At:</strong></td><td>" . htmlspecialchars($hasil['updated_at']) . "</td></tr>";
         echo "</table>";
-        echo "<br><a href='index.php?page=galery_show'><button class='button-primary'>Back</button></a>";
+        echo "<br><a href='index.php?page=gallery_show'><button class='button-primary'>Back</button></a>";
     } else {
         echo "<p>Data not found.</p>";
     }

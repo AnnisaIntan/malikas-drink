@@ -31,7 +31,7 @@
       echo "<td class='action-buttons'>
             <a href='index.php?page=news_read&id=" . $hasil['id'] . "'><button class='button-primary'>Read</button></a>
             <a href='index.php?page=news_add&id=" . $hasil['id'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='news_process.php?status=hapus&id=" . $hasil['id'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
+            <a href='index.php?page=news_process&id=" . $hasil['id'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
             </td>";
       echo "</tr>";
       $no++;

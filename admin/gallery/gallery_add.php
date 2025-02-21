@@ -27,11 +27,6 @@ if (isset($_GET['id'])) {
             <td><input type="text" maxlength="128" size="50" name="judul_galeri" value="<?php echo @$galeri_edit['judul_galeri']; ?>"></td>
         </tr>
         <tr>
-            <td>Tanggal Galeri</td>
-            <td> : </td>
-            <td><input type="date" name="tgl_galeri" value="<?php echo @$galeri_edit['tgl_galeri']; ?>"></td>
-        </tr>
-        <tr>
             <td>Foto Galeri</td>
             <td> : </td>
             <td>

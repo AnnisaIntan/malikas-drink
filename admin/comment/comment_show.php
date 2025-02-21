@@ -1,8 +1,5 @@
 <div class="header-container">
   <h1>Comments</h1>
-  <button class="button-primary">
-    <a href='index.php?page=comment_add'>Create Comment</a>
-  </button>
 </div>
 
 <table id="THIStable" class="display" style="text-align:center;">
@@ -28,8 +25,7 @@
       echo "<td>" . nl2br(htmlspecialchars(substr($hasil['komentar'], 0, 100))) . "...</td>";
       echo "<td class='action-buttons'>
             <a href='index.php?page=comment_read&id=" . $hasil['id_komentar'] . "'><button class='button-primary'>Read</button></a>
-            <a href='index.php?page=comment_add&id=" . $hasil['id_komentar'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='comment_process.php?status=hapus&id=" . $hasil['id_komentar'] . "' onclick=\"return confirm('Are you sure to delete this comment?');\"><button class='button-primary'>Delete</button></a>
+            <a href='index.php?page=comment_process&id=" . $hasil['id_komentar'] . "' onclick=\"return confirm('Are you sure to delete this comment?');\"><button class='button-primary'>Delete</button></a>
             </td>";
       echo "</tr>";
       $no++;

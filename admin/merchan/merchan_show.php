@@ -25,13 +25,13 @@
       echo "<tr>";
       echo "<td>$no</td>";
       echo "<td>" . htmlspecialchars($hasil['nama_merchan']) . "</td>";
-      echo "<td>" . htmlspecialchars($hasil['harga_merchan']) . "</td>";
+      echo "<td>Rp " . number_format($hasil['harga_merchan'], 0, ',', '.') . "</td>";
       echo "<td><img src='" . htmlspecialchars($hasil['foto_merchan']) . "' class='gambar'></td>";
       echo "<td>" . nl2br(htmlspecialchars(substr($hasil['detail_merchan'], 0, 100))) . "...</td>";
       echo "<td class='action-buttons'>
             <a href='index.php?page=merchan_read&id=" . $hasil['id_merchan'] . "'><button class='button-primary'>Read</button></a>
             <a href='index.php?page=merchan_add&id=" . $hasil['id_merchan'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='merchan_process.php?status=hapus&id=" . $hasil['id_merchan'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
+            <a href='index.php?page=merchan_process&id=" . $hasil['id_merchan'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
             </td>";
       echo "</tr>";
       $no++;

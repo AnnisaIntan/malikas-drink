@@ -1,13 +1,21 @@
 RewriteEngine On
 
+# Redirect /malikas-drink/ or /malikas-drink to /malikas-drink/index.php
+RewriteCond %{REQUEST_URI} ^/malikas-drink/?$ [NC]
+RewriteRule ^ /malikas-drink/index/ [L,R=302]
+
 # Prevent infinite redirection loop
 RewriteCond %{REQUEST_URI} !^/malikas-drink/404.php$ [NC]
 
-# Allow access only to /admin and /index (with or without trailing slashes)
+# Allow access only to /admin, /index, /image, and /asset (with or without trailing slashes)
+RewriteCond %{REQUEST_URI} !^/malikas-drink/admin/auth/registration.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/malikas-drink/admin/auth/register_process.php$ [NC]
 RewriteCond %{REQUEST_URI} !^/malikas-drink/admin(/.*)?$ [NC]
 RewriteCond %{REQUEST_URI} !^/malikas-drink/index(/.*)?$ [NC]
 RewriteCond %{REQUEST_URI} !^/malikas-drink/image(/.*)?$ [NC]
 RewriteCond %{REQUEST_URI} !^/malikas-drink/asset(/.*)?$ [NC]
+
+# Redirect all other requests to 404 page
 RewriteRule .* /malikas-drink/404.php [L,R=302]
 
 # Custom error page for 403 Forbidden and 404 Not Found

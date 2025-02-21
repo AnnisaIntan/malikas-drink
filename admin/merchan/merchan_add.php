@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<form action="<?php echo 'index.php?page=merchan_process'; ?>" method="post" enctype="multipart/form-data">
+<form action="index.php?page=merchan_process" method="post" enctype="multipart/form-data">
     <?php
     if (isset($_GET['id'])) {
         echo "<input type='hidden' name='status' value='edit'>";
@@ -24,12 +24,12 @@ if (isset($_GET['id'])) {
         <tr>
             <td>Nama Merchandise</td>
             <td> : </td>
-            <td><input type="text" maxlength="128" size="50" name="nama_merchan" value="<?php echo @$merchan_edit['nama_merchan']; ?>"></td>
+            <td><input type="text" maxlength="128" size="50" name="nama_merchan" value="<?php echo @$merchan_edit['nama_merchan']; ?>" required></td>
         </tr>
         <tr>
             <td>Harga Merchandise</td>
             <td> : </td>
-            <td><input type="number" name="harga_merchan" value="<?php echo @$merchan_edit['harga_merchan']; ?>"></td>
+            <td><input type="number" name="harga_merchan" value="<?php echo @$merchan_edit['harga_merchan']; ?>" required></td>
         </tr>
         <tr>
             <td>Foto Merchandise</td>
@@ -38,16 +38,14 @@ if (isset($_GET['id'])) {
                 <?php if (!empty($merchan_edit['foto_merchan'])): ?>
                     <img src="<?= $merchan_edit['foto_merchan']; ?>" width="100" height="100"><br>
                     <input type="checkbox" name="centang" value="1"> Centang jika ingin ganti foto<br>
-                    <input type="file" name="foto_merchan">
-                <?php else: ?>
-                    <input type="file" name="foto_merchan">
                 <?php endif; ?>
+                <input type="file" name="foto_merchan">
             </td>
         </tr>
         <tr>
             <td>Detail Merchandise</td>
             <td> : </td>
-            <td><textarea name="detail_merchan" rows="5" cols="50"><?php echo @$merchan_edit['detail_merchan']; ?></textarea></td>
+            <td><textarea name="detail_merchan" rows="5" cols="50" required><?php echo @$merchan_edit['detail_merchan']; ?></textarea></td>
         </tr>
     </table>
     <br>
@@ -70,11 +68,6 @@ if (isset($_GET['id'])) {
         border: 1px solid var(--tr1);
         padding: 5px;
         font-size: 16px;
-    }
-
-    input::placeholder {
-        color: var(--bg);
-        opacity: 1;
     }
 
     .button-primary {

@@ -1,15 +1,28 @@
 <?php
 include "../config/connection.php";
 
-$user_id = $_SESSION['id']; // Get user ID from session
+$user_id = $_SESSION['id']; // Get the logged-in user's ID from the session
 
-// Fetch the user data based on their ID
+// Fetch the logged-in user's data from the 'admin' table
 $result = mysqli_query($koneksi, "SELECT * FROM admin WHERE id = '$user_id' LIMIT 1");
 $admin = mysqli_fetch_assoc($result);
+
+// Retrieve data if editing another admin profile
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $admin_ambil = mysqli_query($koneksi, "SELECT * FROM admin WHERE id = '$id'") or die(mysqli_error($koneksi));
+    $admin_edit = mysqli_fetch_array($admin_ambil);
+}
 ?>
 
-<h2>My Profile</h2>
-<br>
+<div class="head" style="display: flex; justify-content: space-between; align-items: center;">
+    <!-- Page Title -->
+    <h2 style="margin: 0;">My Profile</h2>
+    <!-- Edit Profile Button -->
+    <a href="index.php?page=admin_add&id=<?= $user_id ?>" class="button-primary">Edit Profile</a>
+</div>
+
+<!-- Profile Information Table -->
 <table border='1'>
     <tr>
         <td><strong>Username:</strong></td>

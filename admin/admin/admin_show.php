@@ -1,8 +1,5 @@
 <div class="header-container">
   <h1>Admin Web</h1>
-  <button class="button-primary">
-    <a href='index.php?page=admin_add'>Create Data</a>
-  </button>
 </div>
 
 <table id="THIStable" class="display" style="text-align:center;">
@@ -14,7 +11,6 @@
       <th>Address</th>
       <th>Number Phone</th>
       <th>Photo</th>
-      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -30,11 +26,6 @@
       echo "<td>" . htmlspecialchars($hasil['alamat_admin']) . "</td>";
       echo "<td>" . htmlspecialchars($hasil['no_telp_admin']) . "</td>";
       echo "<td><img src='" . htmlspecialchars($hasil['foto_admin']) . "' class='gambar'></td>";
-      echo "<td class='action-buttons'>
-            <a href='index.php?page=admin_read&id=" . $hasil['id'] . "'><button class='button-primary'>Read</button></a> <br>
-            <a href='index.php?page=admin_add&id=" . $hasil['id'] . "'><button class='button-primary'>Update</button></a> <br>
-            <a href='admin_process.php?status=hapus&id=" . $hasil['id'] . "' onclick=\"return confirm('Are you sure to delete this row?');\"><button class='button-primary'>Delete</button></a>
-            </td>";
       echo "</tr>";
       $no++;
     }

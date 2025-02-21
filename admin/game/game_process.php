@@ -1,6 +1,5 @@
 <?php
 include "../config/connection.php";
-session_start();
 
 $id_admin = $_SESSION['id'];
 $user_name = $_SESSION['user_name'];
@@ -14,25 +13,30 @@ switch ($status) {
         $spesifikasi = mysqli_real_escape_string($koneksi, $_POST['spesifikasi']);
         $detail_game = mysqli_real_escape_string($koneksi, $_POST['detail_game']);
 
-        // Handle photo upload
-        $simpan_foto = "";
-        if (isset($_FILES['foto_game']['tmp_name']) && $_FILES['foto_game']['size'] > 0) {
-            $game_foto = $_FILES['foto_game']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_game']['name']);
-            $simpan_foto = "../image/" . $foto_name;
-            move_uploaded_file($game_foto, $simpan_foto);
-        }
-
-        // Insert into database
-        $query = "INSERT INTO game (id_admin, user_name, judul_game, versi, spesifikasi, foto_game, detail_game, created_at, updated_at) 
-                VALUES ('$id_admin', '$user_name', '$judul_game', '$versi', '$spesifikasi', '$simpan_foto', '$detail_game', NOW(), NOW())";
+        // Insert into database first without the photo
+        $query = "INSERT INTO game (id_admin, user_name, judul_game, versi, spesifikasi, detail_game, created_at, updated_at) 
+                  VALUES ('$id_admin', '$user_name', '$judul_game', '$versi', '$spesifikasi', '$detail_game', NOW(), NOW())";
 
         $game_tambah = mysqli_query($koneksi, $query);
 
         if ($game_tambah) {
-            echo "<script>alert('Tambah Data Game Berhasil');</script>";
+            $id_game = mysqli_insert_id($koneksi); // Get the last inserted ID
+
+            // Handle photo upload
+            if (isset($_FILES['foto_game']['tmp_name']) && $_FILES['foto_game']['size'] > 0) {
+                $game_foto = $_FILES['foto_game']['tmp_name'];
+                $foto_extension = pathinfo($_FILES['foto_game']['name'], PATHINFO_EXTENSION);
+                $foto_name = "game-photo-$id_game.$foto_extension";
+                $simpan_foto = "../image/" . $foto_name;
+                move_uploaded_file($game_foto, $simpan_foto);
+
+                // Update the photo path in the database
+                mysqli_query($koneksi, "UPDATE game SET foto_game = '$simpan_foto' WHERE id_game = '$id_game'");
+            }
+
+            echo "<script>alert('Successfully added game data');</script>";
         } else {
-            echo "<script>alert('Tambah Data Game Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to add game data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
@@ -55,7 +59,8 @@ switch ($status) {
 
             // Upload new photo
             $game_foto = $_FILES['foto_game']['tmp_name'];
-            $foto_name = preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['foto_game']['name']);
+            $foto_extension = pathinfo($_FILES['foto_game']['name'], PATHINFO_EXTENSION);
+            $foto_name = "game-photo-$id.$foto_extension";
             $simpan_foto = "../image/" . $foto_name;
             move_uploaded_file($game_foto, $simpan_foto);
         } else {
@@ -78,20 +83,28 @@ switch ($status) {
         $game_edit = mysqli_query($koneksi, $query);
 
         if ($game_edit) {
-            echo "<script>alert('Edit Data Game Berhasil');</script>";
+            echo "<script>alert('Successfully updated game data');</script>";
         } else {
-            echo "<script>alert('Edit Data Game Gagal: " . mysqli_error($koneksi) . "');</script>";
+            echo "<script>alert('Failed to update game data: " . mysqli_error($koneksi) . "');</script>";
         }
         break;
 
     default:
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
+            $existing_foto_game = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT foto_game FROM game WHERE id_game = '$id'"))['foto_game'];
+
+            // Delete the image file if it exists
+            if (!empty($existing_foto_game) && file_exists($existing_foto_game)) {
+                unlink($existing_foto_game);
+            }
+
             $game_hapus = mysqli_query($koneksi, "DELETE FROM game WHERE id_game = '$id'");
+
             if ($game_hapus) {
-                echo "<script>alert('Hapus Data Game Berhasil');</script>";
+                echo "<script>alert('Successfully deleted game data');</script>";
             } else {
-                echo "<script>alert('Hapus Data Game Gagal: " . mysqli_error($koneksi) . "');</script>";
+                echo "<script>alert('Failed to delete game data: " . mysqli_error($koneksi) . "');</script>";
             }
         }
         break;
